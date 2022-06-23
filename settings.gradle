@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Collector"
 include ':app'
 include ':lib_library'
+include ':lib_base'
+include ':lib_core'

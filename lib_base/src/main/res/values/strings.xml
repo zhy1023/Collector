@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">IMIBase</string>
+    <string name="no_network">网络好像开小差了~</string>
+</resources>

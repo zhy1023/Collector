@@ -1,0 +1,168 @@
+/** ********************************************************************/
+/**************************    dps start    **************************/
+/** ********************************************************************/
+def dps = [:]
+dps.junit = "junit:junit:4.+"
+dps.android_test_ext_junit = "androidx.test.ext:junit:1.1.2"
+dps.android_test_runner = 'androidx.test:runner:1.3.0-rc01'
+dps.android_test_rules = 'androidx.test:rules:1.3.0-rc01'
+dps.android_test_espresso = "androidx.test.espresso:espresso-core:3.3.0"
+dps.mockito = "org.mockito:mockito-core:2.24.5"
+dps.android_support_annotations = 'androidx.annotation:annotation:1.1.0'
+dps.android_support_annotations_old = 'com.android.support:support-annotations:28.0.0'
+
+dps.android_bintray_plugin = "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2"
+dps.android_github_dcendents = "com.github.dcendents:android-maven-gradle-plugin:1.5"
+dps.photoview = "com.github.chrisbanes:PhotoView:2.0.0"
+
+dps.dagger = "com.google.dagger:dagger:2.21"
+dps.dagger_compiler = "com.google.dagger:dagger-compiler:2.21"
+dps.dagger_android = "com.google.dagger:dagger-android:2.21"
+dps.dagger_android_support = "com.google.dagger:dagger-android-support:2.21"
+dps.dagger_ndroid_processor = "com.google.dagger:dagger-android-processor:2.21"
+
+dps.guava = "com.google.guava:guava:24.1-jre"
+
+dps.lombok = "org.projectlombok:lombok:1.18.14"
+dps.disklrucache = "com.jakewharton:disklrucache:2.0.2"
+dps.lottie = "com.airbnb.android:lottie:3.4.1"
+dps.eventbus = "org.greenrobot:eventbus:3.1.1"
+dps.fastble = "com.clj.fastble:FastBleLib:2.3.4"
+
+dps.leakcanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+
+dps.blockcanary = "com.github.markzhai:blockcanary-no-op:1.5.0"
+dps.blockcanary_debug = "com.github.markzhai:blockcanary-android:1.5.0"
+
+dps.videocache = "com.danikula:videocache:2.7.0"
+dps.fastjson = "com.alibaba:fastjson:1.2.58"
+dps.MagicIndicator = "com.github.hackware1993:MagicIndicator:1.5.0"
+
+//kotlin
+dps.kotlin_plutin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+dps.kotlin_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21"
+dps.kotlin = "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
+dps.ktx = "androidx.core:core-ktx:1.3.1"
+dps.dokka_plutin = "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
+dps.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
+dps.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1"
+
+//Android Jetpack 组件
+dps.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+dps.livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+dps.extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+dps.work_runtime = "androidx.work:work-runtime:2.3.4"
+dps.navication_fragment = 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+dps.navication_ui = 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+
+def support = [:]
+support.app_compat = 'androidx.appcompat:appcompat:1.3.0-rc01'
+support.recyclerview = 'androidx.recyclerview:recyclerview:1.2.0'
+support.swiperefreshlayout = 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
+support.cardview = 'androidx.cardview:cardview:1.0.0'
+support.design = 'com.google.android.material:material:1.4.0'
+support.v4 = 'androidx.legacy:legacy-support-v4:1.0.0'
+support.exifinterface = 'androidx.exifinterface:exifinterface:1.3.0-alpha01'
+support.multidex = 'androidx.multidex:multidex:2.0.1'
+support.constraint_layout = 'androidx.constraintlayout:constraintlayout:2.1.0-beta02'
+support.dynamic_animation = "com.android.support:support-dynamic-animation:28.0.0"
+dps.support = support
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:2.9.0"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:2.9.0"
+retrofit.scalars = "com.squareup.retrofit2:converter-scalars:2.9.0"
+retrofit.rxjava = "com.squareup.retrofit2:adapter-rxjava:2.9.0"
+retrofit.logging = "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+retrofit.mockwebserver = "com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2"
+dps.retrofit = retrofit
+
+def rx2 = [:]
+rx2.java = "io.reactivex.rxjava2:rxjava:2.2.8"
+rx2.android = "io.reactivex.rxjava2:rxandroid:2.1.1"
+dps.rx2 = rx2
+
+def rx3 = [:]
+rx3.java = "io.reactivex.rxjava3:rxjava:3.0.12"
+rx3.android = "io.reactivex.rxjava3:rxandroid:3.0.0"
+rx3.kotlin = "io.reactivex.rxjava3:rxkotlin:3.0.1"
+dps.rx3 = rx3
+
+def gson = [:]
+gson.runtime = "com.google.code.gson:gson:2.8.0"
+dps.gson = gson
+
+def zxing = [:]
+zxing.zxingcore = "com.google.zxing:core:3.3.3"
+dps.zxing = zxing
+
+def aspectj = [:]
+aspectj.aspectjrt = "org.aspectj:aspectjrt:1.8.9"
+dps.aspectj = aspectj
+
+def deeplink = [:]
+deeplink.deeplinkdispatch = "com.airbnb:deeplinkdispatch:4.1.0"
+deeplink.deeplinkdispatch_processor = "com.airbnb:deeplinkdispatch-processor:4.1.0"
+dps.deeplink = deeplink
+
+
+def camerax = [:]
+camerax.camera2 = "androidx.camera:camera-camera2:1.0.0-beta10"
+camerax.lifecycle = "androidx.camera:camera-lifecycle:1.0.0-beta10"
+camerax.view = 'androidx.camera:camera-view:1.0.0-alpha17'
+dps.camerax = camerax
+
+dps.mmkv = "com.tencent:mmkv-static:1.2.7"
+
+dps.realtimeblurview = "com.github.mmin18:realtimeblurview:1.2.1"
+
+/** ********************************************************************/
+/****************************    dps end    **************************/
+/** ********************************************************************/
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 31 //如果要升级到26，注意OTA升级后apk的安装在8.0机器上会有问题，参考https://www.jianshu.com/p/af37c1c588c4
+build_versions.compileSdkVersion = 31
+build_versions.buildToolsVersion = "30.0.2"
+build_versions.supportLibraryVersion = "28.0.0"
+build_versions.compileOptions = JavaVersion.VERSION_1_8
+build_versions.javaVersion = '1.8'
+ext.build_versions = build_versions
+
+ext.dps = dps
+
+static def addRepos(RepositoryHandler handler) {
+    handler.maven { url "http://maven.youzanyun.com/repository/maven-releases" }
+    handler.maven { url "https://maven.aliyun.com/repository/google" }
+    handler.maven { url "https://maven.aliyun.com/repository/public" }
+    handler.maven { url "https://maven.aliyun.com/repository/central" }
+    handler.maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+    handler.google()
+    handler.mavenCentral()
+    //铼锶nexus库
+    handler.maven { url 'http://139.224.129.201:8081/nexus/content/groups/public/' }
+
+    //ADmobile 广告聚合平台
+    handler.maven { url 'https://repo1.maven.org/maven2/' }
+
+    handler.maven { url "http://101.37.191.20:9091/repository/maven-releases/" }
+
+    handler.maven { url "https://jitpack.io" }
+
+//    handler.maven { url 'https://dl.bintray.com/thelasterstar/maven/' }
+
+    handler.maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+
+    handler.maven { url 'http://4thline.org/m2' }
+
+    handler.maven { url 'https://plugins.gradle.org/m2/' }
+
+//    handler.flatDir {
+//        // 第一个libs是主项目的libs,其他module的libs路径需要用逗号隔开../module名/libs
+//        dirs 'libs', '../common/libs', '../sportcircle/libs'
+//    }
+}
+
+ext.addRepos = this.&addRepos
