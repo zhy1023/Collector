@@ -9,10 +9,17 @@ android {
     defaultConfig {
         minSdk build_versions.min_sdk
         targetSdk build_versions.target_sdk
-        applicationId "com.zy.collector"
-        versionCode 1
-        versionName "1.0"
+        applicationId build_versions.app_id
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+        multiDexEnabled true
 
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,9 +29,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility build_versions.compileOptions
+        targetCompatibility build_versions.compileOptions
     }
     kotlinOptions {
         jvmTarget = '1.8'
