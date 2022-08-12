@@ -108,9 +108,9 @@ dps.deeplink = deeplink
 
 
 def camerax = [:]
-camerax.camera2 = "androidx.camera:camera-camera2:1.0.0-beta10"
-camerax.lifecycle = "androidx.camera:camera-lifecycle:1.0.0-beta10"
-camerax.view = 'androidx.camera:camera-view:1.0.0-alpha17'
+camerax.camera2 = "androidx.camera:camera-camera2:1.0.2"
+camerax.lifecycle = "androidx.camera:camera-lifecycle:1.0.2"
+camerax.view = 'androidx.camera:camera-view:1.1.0-rc02'
 dps.camerax = camerax
 
 dps.mmkv = "com.tencent:mmkv-static:1.2.7"
