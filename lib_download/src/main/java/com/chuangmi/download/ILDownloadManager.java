@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.chuangmi.download.callback.IDownloadListener;
 import com.chuangmi.download.callback.IDownloadManager;
-import com.chuangmi.download.database.ILDownloadDataBase;
+import com.chuangmi.download.constant.ILDownloadState;
+import com.chuangmi.download.database.ILDataBaseUtils;
 import com.chuangmi.download.exception.ILDownLoadException;
 import com.chuangmi.download.model.ILDownloadInfo;
-import com.chuangmi.download.constant.ILDownloadState;
 import com.chuangmi.download.task.ILDownloadTask;
 import com.chuangmi.download.utils.ILCheckUtils;
 
@@ -27,7 +27,6 @@ public class ILDownloadManager implements IDownloadManager {
     private static final String TAG = ILDownloadManager.class.getSimpleName();
 
     private static volatile ILDownloadManager mInstance;
-    private final ILDownloadDataBase mDataBase;
     //当前正在下载的任务
     private ILDownloadInfo mCurrentDownloadInfo;
 
@@ -39,7 +38,7 @@ public class ILDownloadManager implements IDownloadManager {
     private final ExecutorService mExecutorService;
 
     private ILDownloadManager(Context context) {
-        mDataBase = ILDownloadDataBase.getInstance(context);
+        ILDataBaseUtils.init(context);
         mDownloadListenerList = new ArrayList<>();
         mDownloadLinkedQueue = new ConcurrentLinkedQueue<>();
         mExecutorService = Executors.newSingleThreadExecutor();
@@ -98,10 +97,14 @@ public class ILDownloadManager implements IDownloadManager {
     }
 
     private synchronized void prepareDownload(ILDownloadInfo downloadInfo) {
+        ILDownloadInfo info = ILDataBaseUtils.getDownloadInfoByUrl(downloadInfo.getDownloadUrl());
+        if (info != null && info.getDownloadUrl().equals(downloadInfo.getDownloadUrl()) && info.getState() == ILDownloadState.STOP) {
+            downloadInfo.setCurrentSize(info.getCurrentSize());
+        }
         mDownloadLinkedQueue.add(downloadInfo);
         downloadInfo.setState(ILDownloadState.PREPARE);
         mDownloadListener.onPrepared(downloadInfo);
-        mDataBase.getDownloadInfoDao().insert(downloadInfo);
+        ILDataBaseUtils.insert(downloadInfo);
     }
 
     @Override
@@ -110,7 +113,7 @@ public class ILDownloadManager implements IDownloadManager {
             Log.e(TAG, "stopDownload downloadInfo is null.");
             return;
         }
-        if (mCurrentDownloadInfo.getId() == downloadInfo.getId() && !mExecutorService.isShutdown()) {
+        if (mCurrentDownloadInfo.getDownloadUrl().equals(downloadInfo.getDownloadUrl()) && !mExecutorService.isShutdown()) {
             mExecutorService.shutdownNow();
         }
         if (downloadInfo.getState() == ILDownloadState.STOP) {
@@ -118,7 +121,7 @@ public class ILDownloadManager implements IDownloadManager {
         } else {
             mDownloadListener.onDelete(downloadInfo);
         }
-        mDataBase.getDownloadInfoDao().insert(downloadInfo);
+        ILDataBaseUtils.insert(downloadInfo);
     }
 
     public synchronized void stopAll() {
@@ -126,10 +129,10 @@ public class ILDownloadManager implements IDownloadManager {
             mExecutorService.shutdownNow();
         }
         mCurrentDownloadInfo.setState(ILDownloadState.STOP);
-        mDataBase.getDownloadInfoDao().update(mCurrentDownloadInfo);
+        ILDataBaseUtils.update(mCurrentDownloadInfo);
         for (ILDownloadInfo downloadInfo : mDownloadLinkedQueue) {
             downloadInfo.setState(ILDownloadState.STOP);
-            mDataBase.getDownloadInfoDao().update(downloadInfo);
+            ILDataBaseUtils.update(downloadInfo);
         }
     }
 
@@ -138,10 +141,22 @@ public class ILDownloadManager implements IDownloadManager {
             mExecutorService.shutdownNow();
         }
         mCurrentDownloadInfo.setState(ILDownloadState.DELETE);
-        mDataBase.getDownloadInfoDao().update(mCurrentDownloadInfo);
+        ILDataBaseUtils.update(mCurrentDownloadInfo);
         for (ILDownloadInfo downloadInfo : mDownloadLinkedQueue) {
             downloadInfo.setState(ILDownloadState.DELETE);
-            mDataBase.getDownloadInfoDao().update(downloadInfo);
+            ILDataBaseUtils.update(downloadInfo);
+        }
+    }
+
+    /**
+     * 自动下载下一个
+     */
+    private synchronized void autoDownload() {
+        if (!mDownloadLinkedQueue.isEmpty()) {
+            mCurrentDownloadInfo = mDownloadLinkedQueue.peek();
+            mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
+        } else {
+            mCurrentDownloadInfo = null;
         }
     }
 
@@ -154,7 +169,7 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onPrepared(info);
                 }
             }
-            if (mExecutorService != null && mExecutorService.isTerminated()) {
+            if (mCurrentDownloadInfo == null) {
                 mCurrentDownloadInfo = mDownloadLinkedQueue.peek();
                 mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
             }
@@ -188,6 +203,7 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onStop(info);
                 }
             }
+            autoDownload();
         }
 
         @Override
@@ -212,6 +228,8 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onError(info, e);
                 }
             }
+            mExecutorService.shutdownNow();
+            autoDownload();
         }
 
         @Override
@@ -222,6 +240,7 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onDelete(info);
                 }
             }
+            autoDownload();
         }
 
         @Override

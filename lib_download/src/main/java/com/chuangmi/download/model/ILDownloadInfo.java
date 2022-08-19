@@ -21,17 +21,19 @@ public class ILDownloadInfo implements Serializable {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "path")
-    private String path;
+    @ColumnInfo(name = "downloadUrl")
+    private String downloadUrl;
 
     @ColumnInfo(name = "savePath")
     private String savePath;
 
-    /**
-     * 下载状态
-     */
+    /** 下载状态*/
     @ColumnInfo(name = "state")
     private int state = ILDownloadState.IDLE;
+
+    /** 文件已下载长度*/
+    @ColumnInfo(name = "currentSize")
+    private long currentSize;
 
     @ColumnInfo(name = "size")
     private long size;
@@ -52,12 +54,12 @@ public class ILDownloadInfo implements Serializable {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    public String getDownloadUrl() {
+        return downloadUrl;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 
     public String getSavePath() {
@@ -84,5 +86,24 @@ public class ILDownloadInfo implements Serializable {
         this.size = size;
     }
 
+    public long getCurrentSize() {
+        return currentSize;
+    }
 
+    public void setCurrentSize(long currentSize) {
+        this.currentSize = currentSize;
+    }
+
+    @Override
+    public String toString() {
+        return "ILDownloadInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", downloadUrl='" + downloadUrl + '\'' +
+                ", savePath='" + savePath + '\'' +
+                ", state=" + state +
+                ", currentSize=" + currentSize +
+                ", size=" + size +
+                '}';
+    }
 }

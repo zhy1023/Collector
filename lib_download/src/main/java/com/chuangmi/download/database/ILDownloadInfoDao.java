@@ -27,45 +27,41 @@ import java.util.List;
  */
 @Dao
 public interface ILDownloadInfoDao {
+
+    /**
+     * 根据downloadUrl查询下载任务
+     */
+    @Query("select * from download_info where downloadUrl is :url")
+    ILDownloadInfo getDownloadInfoByUrl(String url);
+
     /**
      * 查询所有帐号信息
      * asc升序（默认）
      * desc降序
-     *
-     * @return
      */
-    @Query("select * from download_info order by uid")
+    @Query("select * from download_info order by id")
     List<ILDownloadInfo> getAll();
 
     /**
      * 插入一条帐号信息
-     *
-     * @return
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ILDownloadInfo downloadInfo);
 
     /**
      * 插入帐号信息集合
-     *
-     * @return
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ILDownloadInfo> downloadInfoList);
 
     /**
      * 删除一条帐号信息
-     *
-     * @return
      */
     @Delete
     void delete(ILDownloadInfo downloadInfo);
 
-
     /**
      * 删除帐号信息集合
-     *
-     * @return
      */
     @Delete
     void deleteAll(List<ILDownloadInfo> downloadInfoList);
