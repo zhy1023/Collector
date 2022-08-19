@@ -3,6 +3,7 @@ package com.chuangmi.download.database;
 import android.content.Context;
 
 import com.chuangmi.download.model.ILDownloadInfo;
+import com.chuangmi.download.utils.ILThreadUtils;
 
 import java.util.List;
 
@@ -32,29 +33,29 @@ public class ILDataBaseUtils {
 
     public static void insert(ILDownloadInfo downloadInfo) {
         checkDataBaseDao();
-        mDownloadInfoDao.insert(downloadInfo);
+        ILThreadUtils.runOnSubThread(() -> mDownloadInfoDao.insert(downloadInfo));
     }
 
     public static void insertAll(List<ILDownloadInfo> downloadInfoList) {
         checkDataBaseDao();
-        mDownloadInfoDao.insertAll(downloadInfoList);
+        ILThreadUtils.runOnSubThread(() -> mDownloadInfoDao.insertAll(downloadInfoList));
     }
 
     public static void delete(ILDownloadInfo downloadInfo) {
         checkDataBaseDao();
-        mDownloadInfoDao.delete(downloadInfo);
+        ILThreadUtils.runOnSubThread(() -> mDownloadInfoDao.delete(downloadInfo));
     }
 
 
     public static void deleteAll(List<ILDownloadInfo> downloadInfoList) {
         checkDataBaseDao();
-        mDownloadInfoDao.deleteAll(downloadInfoList);
+        ILThreadUtils.runOnSubThread(() -> mDownloadInfoDao.deleteAll(downloadInfoList));
     }
 
 
     public static void update(ILDownloadInfo downloadInfo) {
         checkDataBaseDao();
-        mDownloadInfoDao.update(downloadInfo);
+        ILThreadUtils.runOnSubThread(() -> mDownloadInfoDao.update(downloadInfo));
     }
 
     private static void checkDataBaseDao() {

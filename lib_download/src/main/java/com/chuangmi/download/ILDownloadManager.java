@@ -11,12 +11,16 @@ import com.chuangmi.download.exception.ILDownLoadException;
 import com.chuangmi.download.model.ILDownloadInfo;
 import com.chuangmi.download.task.ILDownloadTask;
 import com.chuangmi.download.utils.ILCheckUtils;
+import com.chuangmi.download.utils.ILThreadUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 /**
  * @Author: zhy
@@ -97,10 +101,10 @@ public class ILDownloadManager implements IDownloadManager {
     }
 
     private synchronized void prepareDownload(ILDownloadInfo downloadInfo) {
-        ILDownloadInfo info = ILDataBaseUtils.getDownloadInfoByUrl(downloadInfo.getDownloadUrl());
-        if (info != null && info.getDownloadUrl().equals(downloadInfo.getDownloadUrl()) && info.getState() == ILDownloadState.STOP) {
-            downloadInfo.setCurrentSize(info.getCurrentSize());
-        }
+//        ILDownloadInfo info = ILDataBaseUtils.getDownloadInfoByUrl(downloadInfo.getDownloadUrl());
+//        if (info != null && info.getDownloadUrl().equals(downloadInfo.getDownloadUrl()) && info.getState() == ILDownloadState.STOP) {
+//            downloadInfo.setCurrentSize(info.getCurrentSize());
+//        }
         mDownloadLinkedQueue.add(downloadInfo);
         downloadInfo.setState(ILDownloadState.PREPARE);
         mDownloadListener.onPrepared(downloadInfo);
@@ -153,7 +157,7 @@ public class ILDownloadManager implements IDownloadManager {
      */
     private synchronized void autoDownload() {
         if (!mDownloadLinkedQueue.isEmpty()) {
-            mCurrentDownloadInfo = mDownloadLinkedQueue.peek();
+            mCurrentDownloadInfo = mDownloadLinkedQueue.poll();
             mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
         } else {
             mCurrentDownloadInfo = null;
@@ -214,10 +218,7 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onCompletion(info);
                 }
             }
-            if (!mDownloadLinkedQueue.isEmpty()) {
-                mCurrentDownloadInfo = mDownloadLinkedQueue.peek();
-                mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
-            }
+            autoDownload();
         }
 
         @Override

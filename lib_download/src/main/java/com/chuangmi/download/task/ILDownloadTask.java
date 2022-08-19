@@ -36,12 +36,13 @@ public class ILDownloadTask implements Runnable {
     public void run() {
         mDownloadListener.onStart(mDownloadInfo);
         long currentSize = 0;
-        File file = new File(mDownloadInfo.getSavePath());
+        File file = new File(mDownloadInfo.getSavePath() + mDownloadInfo.getName());
         if (!file.exists()) {
             try {
-                file.createNewFile();
-            } catch (IOException e) {
+                file.getParentFile().mkdirs();
+            } catch (Exception e) {
                 e.printStackTrace();
+                mDownloadListener.onError(mDownloadInfo, new ILDownLoadException(-1, e.getMessage()));
             }
         } else {
             currentSize = file.length();
@@ -93,7 +94,7 @@ public class ILDownloadTask implements Runnable {
             } else {
                 Log.e(TAG, "不支持断点下载 :" + mDownloadInfo);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             mDownloadInfo.setState(ILDownloadState.ERROR);
             mDownloadInfo.setCurrentSize(0);
             ILDataBaseUtils.update(mDownloadInfo);
