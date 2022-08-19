@@ -18,12 +18,15 @@ public class ILDownloadInfo implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    /** 文件名称*/
     @ColumnInfo(name = "name")
     private String name;
 
+    /** 文件下载链接*/
     @ColumnInfo(name = "downloadUrl")
     private String downloadUrl;
 
+    /** 文件存储路径*/
     @ColumnInfo(name = "savePath")
     private String savePath;
 
@@ -35,6 +38,7 @@ public class ILDownloadInfo implements Serializable {
     @ColumnInfo(name = "currentSize")
     private long currentSize;
 
+    /** 文件总长度*/
     @ColumnInfo(name = "size")
     private long size;
 

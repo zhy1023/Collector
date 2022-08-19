@@ -31,7 +31,7 @@ public interface ILDownloadInfoDao {
     /**
      * 根据downloadUrl查询下载任务
      */
-    @Query("select * from download_info where downloadUrl is :url")
+    @Query("select * from download_info where downloadUrl = :url")
     ILDownloadInfo getDownloadInfoByUrl(String url);
 
     /**
