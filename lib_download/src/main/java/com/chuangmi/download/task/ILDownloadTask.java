@@ -10,7 +10,6 @@ import com.chuangmi.download.model.ILDownloadInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -53,11 +52,11 @@ public class ILDownloadTask implements Runnable {
                     .openConnection();
             connection.setConnectTimeout(30 * 1000);
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Range", "bytes=" + currentSize
-                    + "-" + mDownloadInfo.getSize());
+//            connection.setRequestProperty("Range", "bytes=" + currentSize
+//                    + "-" + mDownloadInfo.getSize());
             int code = connection.getResponseCode();
             // 判断是否能够断点下载
-            if (code == 206) {
+            if (code == 200) {
                 OutputStream outputStream = new FileOutputStream(file, true);
                 InputStream is = connection.getInputStream();
                 byte[] buffer = new byte[4096];
@@ -65,6 +64,12 @@ public class ILDownloadTask implements Runnable {
                 mDownloadInfo.setState(ILDownloadState.PROGRESS);
                 ILDataBaseUtils.update(mDownloadInfo);
                 long totalSize = getContentSize(connection);
+                if (totalSize == currentSize) {
+                    mDownloadListener.onError(mDownloadInfo, new ILDownLoadException(-1, "文件已下载完成"));
+                    return;
+                }
+                mDownloadInfo.setSize(totalSize);
+//                long totalSize = connection.getContentLength();
                 int currentPercent = -1;
                 while ((length = is.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, length);
@@ -81,6 +86,7 @@ public class ILDownloadTask implements Runnable {
                     ILDataBaseUtils.update(mDownloadInfo);
                     mDownloadListener.onCompletion(mDownloadInfo);
                 } else {
+                    Log.e(TAG, "下载文件长度异常.");
                     mDownloadInfo.setState(ILDownloadState.ERROR);
                     ILDataBaseUtils.update(mDownloadInfo);
                     mDownloadListener.onCompletion(mDownloadInfo);
@@ -91,10 +97,13 @@ public class ILDownloadTask implements Runnable {
                 is.close();
                 outputStream.flush();
                 outputStream.close();
+                connection.disconnect();
             } else {
-                Log.e(TAG, "不支持断点下载 :" + mDownloadInfo);
+                Log.e(TAG, "HTTP exception :" + mDownloadInfo);
+                mDownloadListener.onError(mDownloadInfo, new ILDownLoadException(code, "HTTP exception."));
             }
         } catch (Exception e) {
+            Log.e(TAG, "下载异常 :" + e.getMessage());
             mDownloadInfo.setState(ILDownloadState.ERROR);
             mDownloadInfo.setCurrentSize(0);
             ILDataBaseUtils.update(mDownloadInfo);

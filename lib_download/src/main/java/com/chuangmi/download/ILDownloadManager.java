@@ -174,7 +174,7 @@ public class ILDownloadManager implements IDownloadManager {
                 }
             }
             if (mCurrentDownloadInfo == null) {
-                mCurrentDownloadInfo = mDownloadLinkedQueue.peek();
+                mCurrentDownloadInfo = mDownloadLinkedQueue.poll();
                 mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
             }
         }

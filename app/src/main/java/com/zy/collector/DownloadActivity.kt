@@ -14,7 +14,7 @@ import java.io.File
  * @Desc: DownloadActivity
  */
 class DownloadActivity : AppCompatActivity() {
-    private val savePath: String by lazy { ILFileUtils.getDir(this) + "imiLab/download" + File.separator }
+    private val savePath: String by lazy { ILFileUtils.getDir(this) + "download" + File.separator }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,29 +34,29 @@ class DownloadActivity : AppCompatActivity() {
 
     private fun handleStartDownload() {
         val info1 = ILDownloadInfo()
-        info1.name = "向日葵.apk"
+        info1.name = "sunflower.apk"
         info1.savePath = savePath
         info1.downloadUrl =
-            "https://dl-cdn.oray.com/hsk/android/hskTunnel_2.0.apk"
+            "https://pgy.oray.com/softwares/156/download/1664/PgyVisitorEnt_1.2.0.apk"
 
         val info2 = ILDownloadInfo()
-        info2.name = "蒲公英游戏版.apk"
+        info2.name = "Pgy.apk"
         info2.savePath = savePath
         info2.downloadUrl =
-            "https://dl-cdn.oray.com/hsk/android/hskTunnel_2.0.apk"
+            "https://pgy.oray.com/softwares/156/download/1664/PgyVisitorEnt_1.2.0.apk"
 
         val info3 = ILDownloadInfo()
-        info3.name = "花生壳.apk"
+        info3.name = "peanut.apk"
         info3.savePath = savePath
         info3.downloadUrl =
-            "https://dl-cdn.oray.com/hsk/android/hskTunnel_2.0.apk"
+            "https://pgy.oray.com/softwares/156/download/1664/PgyVisitorEnt_1.2.0.apk"
 
 
         val info4 = ILDownloadInfo()
-        info4.name = "开心消消乐.apk"
+        info4.name = "happy.apk"
         info4.savePath = savePath
         info4.downloadUrl =
-            "https://dl-cdn.oray.com/hsk/android/hskTunnel_2.0.apk"
+            "https://pgy.oray.com/softwares/156/download/1664/PgyVisitorEnt_1.2.0.apk"
 
         val downloadList = ArrayList<ILDownloadInfo>()
         downloadList.add(info1)

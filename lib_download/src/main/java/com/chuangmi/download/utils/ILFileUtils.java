@@ -81,14 +81,13 @@ public class ILFileUtils {
     public static String getDir(Context context) {
         String dir;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            dir = context.getExternalFilesDir("") + File.separator + "Media" + File.separator;
+            dir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + File.separator;
         } else {
-            dir = Environment.getExternalStorageDirectory() + File.separator + "DCIM"
-                    + File.separator + "Camera" + File.separator;
+            dir = Environment.getExternalStorageDirectory() + File.separator + "imiLab"
+                    + File.separator + "download" + File.separator;
         }
         File file = new File(dir);
         if (!file.exists()) {
-            //noinspection ResultOfMethodCallIgnored
             file.mkdirs();
         }
         return dir;
