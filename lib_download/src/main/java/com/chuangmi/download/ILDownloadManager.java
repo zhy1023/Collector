@@ -158,8 +158,10 @@ public class ILDownloadManager implements IDownloadManager {
     private synchronized void autoDownload() {
         if (!mDownloadLinkedQueue.isEmpty()) {
             mCurrentDownloadInfo = mDownloadLinkedQueue.poll();
+            Log.d(TAG, "autoDownload info: " + mCurrentDownloadInfo);
             mExecutorService.submit(new ILDownloadTask(mCurrentDownloadInfo, mDownloadListener));
         } else {
+            Log.d(TAG, "autoDownload end.");
             mCurrentDownloadInfo = null;
         }
     }
@@ -229,7 +231,9 @@ public class ILDownloadManager implements IDownloadManager {
                     listener.onError(info, e);
                 }
             }
-            mExecutorService.shutdownNow();
+            if (!mExecutorService.isShutdown()) {
+                mExecutorService.shutdownNow();
+            }
             autoDownload();
         }
 
