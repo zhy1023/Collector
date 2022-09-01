@@ -16,9 +16,16 @@ rootProject.name = "Collector"
 include ':app'
 include ':lib_library'
 include ':lib_ui'
-include ':lib_core'
-include ':lib_camera'
 include ':lib_download'
-include ':lib_wifi'
-include ':lib_ble'
 include ':lib_common'
+
+/** iot lib start*/
+include ':IotLib:ble'
+project(':IotLib:ble').projectDir = new File("./IotLib/lib_ble")
+
+include ':IotLib:wifi'
+project(':IotLib:wifi').projectDir = new File("./IotLib/lib_wifi")
+
+include ':IotLib:camera'
+project(':IotLib:camera').projectDir = new File("./IotLib/lib_camera")
+/** iot lib end*/

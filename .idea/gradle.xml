@@ -10,15 +10,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/IotLib" />
+            <option value="$PROJECT_DIR$/IotLib/lib_ble" />
+            <option value="$PROJECT_DIR$/IotLib/lib_camera" />
+            <option value="$PROJECT_DIR$/IotLib/lib_wifi" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/lib_ble" />
-            <option value="$PROJECT_DIR$/lib_camera" />
             <option value="$PROJECT_DIR$/lib_common" />
-            <option value="$PROJECT_DIR$/lib_core" />
             <option value="$PROJECT_DIR$/lib_download" />
             <option value="$PROJECT_DIR$/lib_library" />
             <option value="$PROJECT_DIR$/lib_ui" />
-            <option value="$PROJECT_DIR$/lib_wifi" />
           </set>
         </option>
       </GradleProjectSettings>

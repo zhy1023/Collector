@@ -1,4 +1,4 @@
-package com.zy.core.exception
+package com.zy.common.exception
 
 /**
  * @Author: zhy

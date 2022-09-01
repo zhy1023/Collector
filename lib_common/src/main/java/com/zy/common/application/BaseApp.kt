@@ -1,4 +1,4 @@
-package com.zy.core.application
+package com.zy.common.application
 
 import android.annotation.SuppressLint
 import android.content.Context

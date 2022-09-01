@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Collector.app" target="11" />
+      <module name="Collector.IotLib.ble" target="11" />
+      <module name="Collector.IotLib.camera" target="11" />
+      <module name="Collector.IotLib.wifi" target="11" />
       <module name="Collector.lib_ble" target="11" />
       <module name="Collector.lib_camera" target="11" />
       <module name="Collector.lib_common" target="11" />
