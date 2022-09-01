@@ -3,10 +3,13 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Collector.app" target="11" />
-      <module name="Collector.lib_base" target="11" />
+      <module name="Collector.lib_ble" target="11" />
       <module name="Collector.lib_camera" target="11" />
+      <module name="Collector.lib_common" target="11" />
       <module name="Collector.lib_core" target="11" />
       <module name="Collector.lib_download" target="11" />
+      <module name="Collector.lib_ui" target="11" />
+      <module name="Collector.lib_wifi" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
