@@ -2,7 +2,7 @@ package com.chuangmi.ui.base.mvvm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zy.core.exception.CRException
+import com.zy.common.exception.CRException
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -81,7 +81,6 @@ abstract class BaseViewModel : ViewModel(), IContract.BaseViewModelFun {
 
                 override fun onComplete() {
                 }
-
             })
         }
     }

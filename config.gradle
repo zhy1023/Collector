@@ -37,6 +37,7 @@ dps.blockcanary_debug = "com.github.markzhai:blockcanary-android:1.5.0"
 dps.videocache = "com.danikula:videocache:2.7.0"
 dps.fastjson = "com.alibaba:fastjson:1.2.58"
 dps.MagicIndicator = "com.github.hackware1993:MagicIndicator:1.5.0"
+dps.mvvm = "com.tencent:mmkv-static:1.2.8"
 
 //kotlin
 dps.kotlin_plutin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"

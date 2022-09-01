@@ -1,11 +1,11 @@
 package com.chuangmi.ui.base.mvvm
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.chuangmi.ui.R
 import com.chuangmi.ui.base.BaseFragment
