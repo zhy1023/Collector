@@ -1,8 +1,8 @@
 package com.zy.collector
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.chuangmi.download.ILDownloadManager
 import com.chuangmi.download.model.ILDownloadInfo
 import com.chuangmi.download.utils.ILFileUtils
@@ -69,5 +69,10 @@ class DownloadActivity : AppCompatActivity() {
 
     companion object {
         val TAG = DownloadActivity::class.java.simpleName
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ILDownloadManager.getInstance(this).release()
     }
 }

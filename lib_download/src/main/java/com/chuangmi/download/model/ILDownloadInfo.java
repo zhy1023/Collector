@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import com.chuangmi.download.constant.ILDownloadState;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @Author: zhy
@@ -96,6 +97,19 @@ public class ILDownloadInfo implements Serializable {
 
     public void setCurrentSize(long currentSize) {
         this.currentSize = currentSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ILDownloadInfo that = (ILDownloadInfo) o;
+        return name.equals(that.name) && downloadUrl.equals(that.downloadUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, downloadUrl);
     }
 
     @Override

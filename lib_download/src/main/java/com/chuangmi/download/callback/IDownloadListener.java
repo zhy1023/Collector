@@ -47,9 +47,4 @@ public interface IDownloadListener {
      * 删除成功
      */
     void onDelete(ILDownloadInfo info);
-
-    /**
-     * 全部删除
-     */
-    void onDeleteAll();
 }

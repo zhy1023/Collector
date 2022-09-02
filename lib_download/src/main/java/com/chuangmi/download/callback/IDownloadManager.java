@@ -49,4 +49,19 @@ public interface IDownloadManager {
      * 清空所有下载监听
      */
     void clearDownloadListener();
+
+    /**
+     * 获取最大下载线程数
+     */
+    int getMaxNum();
+
+    /**
+     * 设置最大下载并发数 默认单任务下载
+     */
+    void setMaxNum(int maxNum);
+
+    /**
+     * 关闭数据库并清空下载队列
+     */
+    void release();
 }

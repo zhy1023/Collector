@@ -20,7 +20,7 @@ import java.net.URL;
  * @Date: 2022/8/11
  * @Desc: ILDownloadTask
  */
-public class ILDownloadTask implements Runnable {
+public class ILDownloadTask extends Thread {
     private static final String TAG = ILDownloadTask.class.getSimpleName();
     private final ILDownloadInfo mDownloadInfo;
     private final IDownloadListener mDownloadListener;
@@ -33,6 +33,8 @@ public class ILDownloadTask implements Runnable {
 
     @Override
     public void run() {
+        Log.d(TAG, "download start :" + mDownloadInfo);
+        mDownloadInfo.setState(ILDownloadState.START);
         mDownloadListener.onStart(mDownloadInfo);
         long currentSize = 0;
         File file = new File(mDownloadInfo.getSavePath() + mDownloadInfo.getName());
@@ -41,11 +43,13 @@ public class ILDownloadTask implements Runnable {
                 file.getParentFile().mkdirs();
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.e(TAG, "file mkdir exception: " + e.getMessage());
                 mDownloadListener.onError(mDownloadInfo, new ILDownLoadException(-1, e.getMessage()));
             }
         } else {
             currentSize = file.length();
         }
+        Log.d(TAG, "download info init  currentSize :" + currentSize);
         try {
             URL url = new URL(mDownloadInfo.getDownloadUrl());
             HttpURLConnection connection = (HttpURLConnection) url
@@ -59,6 +63,7 @@ public class ILDownloadTask implements Runnable {
                     + "-" + totalSize);
             connection.connect();
             int code = connection.getResponseCode();
+            Log.d(TAG, "http connection code: " + code);
             // 判断是否能够断点下载
             if (code == 206) {
                 OutputStream outputStream = new FileOutputStream(file, true);

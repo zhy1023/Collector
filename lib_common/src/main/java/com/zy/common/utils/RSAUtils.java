@@ -3,7 +3,8 @@ package com.zy.common.utils;
 import android.content.Context;
 import android.util.Base64;
 
-import com.netease.common.R;
+
+import com.zy.common.R;
 
 import org.json.JSONObject;
 
@@ -12,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -91,7 +93,7 @@ public class RSAUtils {
     public static HashMap<String, String> genMap(String acc)
             throws RuntimeException {
         System.out.println("accept data:" + acc);
-        HashMap<String, String> tmpMap = new HashMap<String, String>();
+        HashMap<String, String> tmpMap = new HashMap<>();
         if (acc == null || acc.length() < 26) {
             throw new RuntimeException("非法数据");
         }
@@ -214,7 +216,7 @@ public class RSAUtils {
         byte[] decryptedKey = doCrypt(RSA_ECB_PKCS1Padding,
                 Cipher.DECRYPT_MODE, null, key, encryptedKey);
         String pwd = new String(decryptedKey, encode);
-        if (pwd == null || pwd.getBytes(encode).length != 6) {
+        if (pwd.getBytes(encode).length != 6) {
             throw new RuntimeException("伪造密钥");
         }
         //      byte[] encryptedData = Base64Utils.decode(dataBase64);
@@ -266,12 +268,12 @@ public class RSAUtils {
     public static String doEncryptMD5(String data, String type)
             throws Exception {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(data.getBytes("UTF-8"));
+        md.update(data.getBytes(StandardCharsets.UTF_8));
         byte b[] = md.digest();
         int i;
         StringBuffer buf = new StringBuffer("");
-        for (int offset = 0; offset < b.length; offset++) {
-            i = b[offset];
+        for (byte value : b) {
+            i = value;
             if (i < 0)
                 i += 256;
             if (i < 16)
@@ -299,13 +301,7 @@ public class RSAUtils {
         try {
             prvKey = getPrvKey();
             pubKey = getPubKey();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         String text = "{\"TxnCode\":\"hce1003\",\"TxnStatus\":\"true\",\"ReplyCode\":\"000000\",\"ReplyMsg\":\"交易成功\",\"Data\":\"[{\\\"accountNo\\\":\\\"623091019******3297\\\",\\\"accountType\\\":\\\"1\\\",\\\"certNo\\\":\\\"***\\\",\\\"certType\\\":\\\"101\\\",\\\"customerName\\\":\\\"***\\\",\\\"mobileNo\\\":\\\"***\\\"},{\\\"accountNo\\\":\\\"***\\\",\\\"accountType\\\":\\\"1\\\",\\\"certNo\\\":\\\"***\\\",\\\"certType\\\":\\\"101\\\",\\\"customerName\\\":\\\"***\\\",\\\"mobileNo\\\":\\\"***\\\"}]\"}";
@@ -442,19 +438,6 @@ public class RSAUtils {
         return abce;
     }
 
-    public static void getPublicKeyFile(Context context) {
-        if (publicFis == null) {
-            //获取解密公钥文件
-            publicFis = context.getResources().openRawResource(R.raw.rsacert);
-            try {
-                pubKey = getPubKey();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (CertificateException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public static void mainTest() {
         String result = "test123456789";

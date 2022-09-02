@@ -61,6 +61,7 @@ public abstract class ILDownloadDataBase extends RoomDatabase {
     public static void closeDataBase() {
         if (null != mInstance && mInstance.isOpen()) {
             mInstance.close();
+            mInstance = null;
         }
     }
 
