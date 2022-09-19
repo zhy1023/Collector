@@ -29,3 +29,4 @@ project(':IotLib:wifi').projectDir = new File("./IotLib/lib_wifi")
 include ':IotLib:camera'
 project(':IotLib:camera').projectDir = new File("./IotLib/lib_camera")
 /** iot lib end*/
+include ':lib_aspect'
