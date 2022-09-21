@@ -1,10 +1,7 @@
 package com.zy.common.utils;
 
-import android.content.Context;
 import android.util.Base64;
 
-
-import com.zy.common.R;
 
 import org.json.JSONObject;
 
