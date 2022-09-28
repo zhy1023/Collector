@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
 }
-apply from: "../common.gradle"
+apply from: "../../common.gradle"
 
 dependencies {
     implementation 'androidx.room:room-common:2.3.0'
@@ -13,5 +13,5 @@ dependencies {
 //    annotationProcessor 'android.arch.persistence.room:compiler:2.4.3'
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
     implementation dps.rx2.java
-    implementation project(path: ':lib_common')
+    implementation project(path: ':commonLib:common')
 }

@@ -3,7 +3,7 @@ import org.aspectj.tools.ajc.Main
 
 apply plugin: 'com.android.library'
 //apply plugin: 'com.aspectj.plugin'
-apply from: "../common.gradle"
+apply from: "../../common.gradle"
 
 buildscript {
     repositories {
