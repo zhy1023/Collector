@@ -1,10 +1,17 @@
 package com.zy.common.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
+
+import androidx.core.content.FileProvider;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -21,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @Author Liudeli
@@ -45,16 +53,17 @@ public final class FileUtils {
     }
 
     /**
-     *  根据文件目录路径获取子目录名称（不获取二级子目录）
+     * 根据文件目录路径获取子目录名称（不获取二级子目录）
+     *
      * @param dirPath 文件路径
      * @return 文件目录名称
      */
-    public static List<String> getFiledirList(String dirPath){
+    public static List<String> getFiledirList(String dirPath) {
         if (dirPath == null || !isDir(dirPath)) return null;
         List<String> stringList = new ArrayList<>();
         File f = new File(dirPath);
         File[] files = f.listFiles();
-        if(files != null&& files.length != 0){
+        if (files != null && files.length != 0) {
             for (File file : files) {
                 if (file.isDirectory()) {
                     stringList.add(file.getName());
@@ -63,6 +72,7 @@ public final class FileUtils {
         }
         return stringList;
     }
+
     /**
      * 判断文件是否存在
      *
@@ -384,7 +394,7 @@ public final class FileUtils {
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
      */
     public static boolean moveFile(final String srcFilePath, final String destFilePath) {
-        Log.e("xxx","移动文件"+srcFilePath+"---->"+destFilePath);
+        Log.e("xxx", "移动文件" + srcFilePath + "---->" + destFilePath);
         return moveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath));
     }
 
@@ -412,25 +422,27 @@ public final class FileUtils {
 
     /**
      * 删除文件或目录
+     *
      * @param file
      * @return
      */
-    public static boolean deleteDirOrFile(File file){
+    public static boolean deleteDirOrFile(File file) {
         if (file == null) return false;
         if (!file.exists()) return false;
-        if(file.isFile()){
+        if (file.isFile()) {
             return deleteFile(file);
-        }else{
+        } else {
             return deleteDir(file);
         }
     }
 
     /**
      * 删除文件或目录
+     *
      * @param path
      * @return
      */
-    public static boolean deleteDirOrFile(String path){
+    public static boolean deleteDirOrFile(String path) {
         return deleteDirOrFile(getFileByPath(path));
     }
 
@@ -462,14 +474,15 @@ public final class FileUtils {
 
     /**
      * 删除Luban文件集合 以“|” 分割
+     *
      * @param srcFilePaths
      */
-    public static void  deleteFiles(String srcFilePaths){
-        if(TextUtils.isEmpty(srcFilePaths))
+    public static void deleteFiles(String srcFilePaths) {
+        if (TextUtils.isEmpty(srcFilePaths))
             return;
         List<String> list = Arrays.asList(srcFilePaths.split("\\|"));
-        for(String path : list){
-            if(path.contains("luban")){
+        for (String path : list) {
+            if (path.contains("luban")) {
                 deleteFile(path);
             }
         }
@@ -623,7 +636,7 @@ public final class FileUtils {
         File[] files = dir.listFiles();
         if (files != null && files.length != 0) {
             for (File file : files) {
-                if(file.length()>10){
+                if (file.length() > 10) {
                     if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
                         list.add(file);
                     }
@@ -1136,37 +1149,39 @@ public final class FileUtils {
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
     }
+
     /**
      * 根据文件类型去删除其在系统中对应的Media数据库
+     *
      * @param file
      * @return -1代表不是媒体文件，0表示在数据库中查找不到，1找到数据库中对应的数据，并且删除
      */
-    public static int deleteMedia(File file){
+    public static int deleteMedia(File file) {
         String name = file.getName();
         String path = file.getAbsolutePath();
-        if(name.contains(".jpg") || name.contains(".mp4")){
+        if (name.contains(".jpg") || name.contains(".mp4")) {
             Uri MEDIA_URI = null;
-            if(name.contains(".jpg")){
-                if(path.contains("mnt/sdcard/")){
+            if (name.contains(".jpg")) {
+                if (path.contains("mnt/sdcard/")) {
                     MEDIA_URI = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
                     path = path.replace("/mnt/sdcard/", "/storage/sdcard0/");
-                }else if(file.getAbsolutePath().contains("mnt/sdcard2/")){
+                } else if (file.getAbsolutePath().contains("mnt/sdcard2/")) {
                     MEDIA_URI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                    path = path.replace("/mnt/sdcard2/","/storage/sdcard1/");
+                    path = path.replace("/mnt/sdcard2/", "/storage/sdcard1/");
                 }
-            }else{
-                if(path.contains("mnt/sdcard/")){
+            } else {
+                if (path.contains("mnt/sdcard/")) {
                     MEDIA_URI = MediaStore.Video.Media.INTERNAL_CONTENT_URI;
-                    path = path.replace("/mnt/sdcard1/","/storage/sdcard0/");
-                }else if(file.getAbsolutePath().contains("mnt/sdcard2/")){
+                    path = path.replace("/mnt/sdcard1/", "/storage/sdcard0/");
+                } else if (file.getAbsolutePath().contains("mnt/sdcard2/")) {
                     MEDIA_URI = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                    path = path.replace("/mnt/sdcard2/","/storage/sdcard1/");
+                    path = path.replace("/mnt/sdcard2/", "/storage/sdcard1/");
                 }
             }
-            int resultCode = 0 ;
+            int resultCode = 0;
             // resultCode = MyApp.getInstance().getContentResolver().delete(MEDIA_URI, MediaStore.Images.Media.DATA+"="+"'"+path+"'" , null);
             return resultCode;
-        }else{
+        } else {
             return -1;
         }
     }
@@ -1232,11 +1247,12 @@ public final class FileUtils {
 
     /**
      * 在指定的位置创建指定的文件
+     *
      * @param filePath 完整的文件路径
-     * @param mkdir 是否创建相关的文件夹
+     * @param mkdir    是否创建相关的文件夹
      * @throws IOException
      */
-    public static void mkFile(String filePath, boolean mkdir) throws IOException{
+    public static void mkFile(String filePath, boolean mkdir) throws IOException {
         File file = new File(filePath);
         /**
          * mkdirs()创建多层目录，mkdir()创建单层目录
@@ -1250,6 +1266,7 @@ public final class FileUtils {
 
     /**
      * 在指定的位置创建文件夹
+     *
      * @param dirPath 文件夹路径
      * @return 若创建成功，则返回True；反之，则返回False
      */
@@ -1259,6 +1276,7 @@ public final class FileUtils {
 
     /**
      * 删除指定的文件
+     *
      * @param filePath 文件路径
      * @return 若删除成功，则返回True；反之，则返回False
      */
@@ -1268,6 +1286,7 @@ public final class FileUtils {
 
     /**
      * 删除指定的文件夹
+     *
      * @param dirPath 文件夹路径
      * @param delFile 文件夹中是否包含文件
      * @return 若删除成功，则返回True；反之，则返回False
@@ -1301,12 +1320,13 @@ public final class FileUtils {
 
     /**
      * 复制文件/文件夹 若要进行文件夹复制，请勿将目标文件夹置于源文件夹中
-     * @param source 源文件（夹）
-     * @param target 目标文件（夹）
+     *
+     * @param source   源文件（夹）
+     * @param target   目标文件（夹）
      * @param isFolder 若进行文件夹复制，则为True；反之为False
      * @throws IOException
      */
-    public static void copy(String source, String target, boolean isFolder) throws IOException{
+    public static void copy(String source, String target, boolean isFolder) throws IOException {
         if (isFolder) {
             new File(target).mkdirs();
             File a = new File(source);
@@ -1329,7 +1349,8 @@ public final class FileUtils {
                     output.flush();
                     output.close();
                     input.close();
-                } if (temp.isDirectory()) {
+                }
+                if (temp.isDirectory()) {
                     copy(source + File.separator + file[i], target + File.separator + file[i], true);
                 }
             }
@@ -1343,7 +1364,7 @@ public final class FileUtils {
                 file.createNewFile();
                 FileOutputStream outputStream = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
-                while ((byteread = inputStream.read(buffer)) != -1){
+                while ((byteread = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, byteread);
                 }
                 inputStream.close();
@@ -1352,4 +1373,85 @@ public final class FileUtils {
         }
     }
 
+    //调用系统分享
+    public static void shareFile(List<File> downloads, Activity activity) {
+        boolean multiple = downloads.size() > 1;
+        Intent intent = new Intent(multiple ? Intent.ACTION_SEND_MULTIPLE : Intent.ACTION_SEND);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (multiple) {
+            ArrayList<Uri> uris = new ArrayList<>();
+            for (int i = 0; i < downloads.size(); i++) {
+                File file = downloads.get(i);
+                Uri uri = getFileUri(file, activity);
+                uris.add(uri);
+                stringBuilder.append(file.getName());
+                if (i != downloads.size() - 1) {
+                    stringBuilder.append(".");
+                }
+            }
+            intent.setType("*/*");
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        } else {
+            File file = downloads.get(0);
+            String mimeType = getMimeType(file);
+            intent.setType(mimeType);
+            intent.putExtra(Intent.EXTRA_STREAM, getFileUri(file, activity));
+            stringBuilder.append(file.getName());
+        }
+        String shareText = getShareTitle(stringBuilder.toString());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        activity.startActivity(Intent.createChooser(intent, shareText));
+    }
+
+    private static String getShareTitle(String text) {
+        if (text.length() > 25) {
+            text = text.substring(0, 25);
+            if (text.endsWith(".")) {
+                text = text + "..";
+            } else {
+                text = text + "...";
+            }
+        }
+        return text;
+    }
+
+    /**
+     * 获取文件的MIME
+     *
+     * @param file
+     * @return
+     */
+    public static String getMimeType(File file) {
+        String suffix = getSuffix(file);
+        if (suffix == null) return "file/*";
+        String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+        if (!TextUtils.isEmpty(type)) return type;
+        return "file/*";
+    }
+
+    public static Uri getFileUri(File file, Context context) {
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(context, context.getApplicationInfo().packageName
+                    + ".fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
+    }
+
+    private static String getSuffix(File file) {
+        if (file == null || !file.exists() || file.isDirectory()) return null;
+        String fileName = file.getName();
+        if (fileName.equals("") || fileName.endsWith(".")) return null;
+        int index = fileName.lastIndexOf(".");
+        if (index != -1) {
+            return fileName.substring(index + 1).toLowerCase(Locale.US);
+        } else {
+            return null;
+        }
+    }
 }

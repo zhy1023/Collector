@@ -2,9 +2,56 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
-apply from: "../../common.gradle"
+//apply from: "../../common.gradle"
+
+def enableCMake = true
 
 android {
+    compileSdkVersion build_versions.compileSdkVersion
+    buildToolsVersion build_versions.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    if (enableCMake) {
+        externalNativeBuild {
+            cmake {
+                path "src/main/cpp/CMakeLists.txt"
+                version "3.10.2"
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            if (!enableCMake) {
+                jniLibs.srcDirs 'src/main/libs'
+                jni.srcDirs = []
+            }
+        }
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }

@@ -1,14 +1,17 @@
 package com.zhy.lib_library;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MyClass {
     public static int index;
+    public static String test;
 
     public static void main(String[] args) {
         System.out.println("hello !");
         System.out.println("i = " + index);
+        System.out.println("test = " + test);
         int[] arrs = new int[]{20, 14, 3, 18, 9, 22};
         DataUtils.sortByBubble(arrs);
 //        DataUtils.sortBySelect(arrs);
