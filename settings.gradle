@@ -35,6 +35,9 @@ project(':commonLib:download').projectDir = new File("./commonLib/lib_download")
 include ':commonLib:common'
 project(':commonLib:common').projectDir = new File("./commonLib/lib_common")
 
+include ':commonLib:lib_common_kt'
+project(':commonLib:lib_common_kt').projectDir = new File("./commonLib/lib_common_kt")
+
 //include ':commonLib:aspect'
 //project(':commonLib:aspect').projectDir = new File("./commonLib/lib_aspect")
 

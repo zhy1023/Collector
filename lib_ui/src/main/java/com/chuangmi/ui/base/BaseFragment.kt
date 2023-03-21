@@ -68,14 +68,14 @@ abstract class BaseFragment(layoutResID: Int) : Fragment(), IBaseContract.BaseFr
         }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        //执行懒加载
-        if (this::rootView.isInitialized && !isLazyLoaded) {
-            lazyLoad()
-            isLazyLoaded = true
-        }
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//        //执行懒加载
+//        if (this::rootView.isInitialized && !isLazyLoaded) {
+//            lazyLoad()
+//            isLazyLoaded = true
+//        }
+//    }
 
     open fun customCreateView(
         inflater: LayoutInflater,

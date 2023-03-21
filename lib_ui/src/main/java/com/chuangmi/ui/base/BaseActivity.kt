@@ -14,12 +14,15 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
-import com.chuangmi.base.R
+import com.chuangmi.ui.R
 import com.chuangmi.ui.utils.ActivityCollector
 import com.chuangmi.ui.utils.ActivityCollector.setCurrentActivity
 import com.chuangmi.ui.utils.LogUtils
 import com.chuangmi.ui.widget.IMIToast
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates

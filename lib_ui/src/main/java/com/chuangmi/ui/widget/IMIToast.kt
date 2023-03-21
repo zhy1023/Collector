@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.chuangmi.base.R
+import com.chuangmi.ui.R
 
 
 /**

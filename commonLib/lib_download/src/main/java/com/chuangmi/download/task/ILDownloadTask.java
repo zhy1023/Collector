@@ -56,9 +56,9 @@ public class ILDownloadTask extends Thread {
                     .openConnection();
             connection.setConnectTimeout(30 * 1000);
             connection.setRequestMethod("GET");
-            long totalSize = 17499966;
+//            long totalSize = 17499966;
 //            long totalSize = getContentSize(connection);
-//            long totalSize = connection.getContentLength();
+            long totalSize = connection.getContentLength();
             connection.setRequestProperty("Range", "bytes=" + currentSize
                     + "-" + totalSize);
             connection.connect();
