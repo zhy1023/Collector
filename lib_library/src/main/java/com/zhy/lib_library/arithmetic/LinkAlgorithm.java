@@ -1,5 +1,6 @@
 package com.zhy.lib_library.arithmetic;
 
+import com.zhy.lib_library.bean.LinkNode;
 import com.zhy.lib_library.data_struct.ListNode;
 
 /**
@@ -8,7 +9,7 @@ import com.zhy.lib_library.data_struct.ListNode;
  * @Date : 2021/1/29 17:25
  * @Describe : LinkUtils 链表相关
  */
-public class LinkUtils {
+public class LinkAlgorithm {
 
     /**
      * 实现一种算法，删除单向链表中间的某个节点（即不是第一个或最后一个节点），假定你只能访问该节点。
@@ -24,5 +25,18 @@ public class LinkUtils {
     }
 
 
+    /**
+     * 反转链表
+     *
+     * @param header 链表头
+     */
+    public static LinkNode reverseNode(LinkNode header) {
+        if (header == null || header.next == null) return header;
+        LinkNode next = header.next;
+        LinkNode newHeader = reverseNode(next);
+        header.next = null;
+        next.next = header;
+        return newHeader;
+    }
 
 }

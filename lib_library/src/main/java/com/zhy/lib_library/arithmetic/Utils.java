@@ -164,17 +164,10 @@ public class Utils {
     }
 
     /**
-     * 反转链表
-     *
-     * @param header
-     * @return
+     * 判断数组是否为空
      */
-    public static LinkNode reverseNode(LinkNode header) {
-        if (header == null || header.next == null) return header;
-        LinkNode next = header.next;
-        LinkNode newHeader = reverseNode(next);
-        header.next = null;
-        next.next = header;
-        return newHeader;
+    public static boolean isEmptyArray(int[] arrays) {
+        return arrays == null || arrays.length == 0;
     }
+
 }
