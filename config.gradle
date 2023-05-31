@@ -48,13 +48,26 @@ dps.dokka_plutin = "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
 dps.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 dps.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
-//Android Jetpack 组件
-dps.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-dps.livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-dps.extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
-dps.work_runtime = "androidx.work:work-runtime:2.3.4"
-dps.navication_fragment = 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-dps.navication_ui = 'androidx.navigation:navigation-ui-ktx:2.3.5'
+//Jetpack 组件
+dps.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+dps.livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+dps.extensions = "androidx.lifecycle:lifecycle-extensions:2.4.1"
+dps.work_runtime = "androidx.work:work-runtime:2.7.1"
+dps.navication_fragment = "androidx.navigation:navigation-fragment-ktx:2.5.3"
+dps.navication_ui = "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+dps.room_runtime = "androidx.room:room-runtime:2.4.3"
+dps.room_ktx = "androidx.room:room-ktx:2.4.3"
+dps.room_compiler = "androidx.room:room-compiler:2.4.3"
+//将 Kotlin 协程与生命周期感知型组件一起使用: https://developer.android.com/topic/libraries/architecture/coroutines
+//LifecycleScope协程
+dps.lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+//ProcessLifecycleOwner给整个 app进程 提供一个lifecycle
+dps.lifecycle_process = "androidx.lifecycle:lifecycle-process:2.4.1"
+//帮助实现Service的LifecycleOwner
+dps.lifecycle_service = "androidx.lifecycle:lifecycle-service:2.4.1"
+dps.datastore = "androidx.datastore:datastore:1.0.0"
+dps.datastore_pf = "androidx.datastore:datastore-preferences:1.0.0"
 
 
 def support = [:]
@@ -138,7 +151,8 @@ build_versions.version_name = "1.0"
 build_versions.version_code = 1
 build_versions.compileOptions = JavaVersion.VERSION_1_8
 build_versions.javaVersion = '1.8'
-build_versions.kotlin_version = '1.7.0'
+build_versions.kotlin_version = '1.7.20'
+
 ext.build_versions = build_versions
 
 ext.dps = dps
