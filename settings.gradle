@@ -41,3 +41,4 @@ project(':commonLib:common').projectDir = new File("./commonLib/lib_common")
 //include ':commonLib:net'
 //project(':commonLib:net').projectDir = new File("./commonLib/lib_net")
 /** iot common end*/
+include ':AppDemo'
