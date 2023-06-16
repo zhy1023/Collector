@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.download -> startActivity(Intent(this, DownloadActivity::class.java))
+//            R.id.download -> startActivity(Intent(this, DownloadActivity::class.java))
 
         }
     }

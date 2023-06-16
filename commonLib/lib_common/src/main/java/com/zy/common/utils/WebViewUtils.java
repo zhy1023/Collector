@@ -1,5 +1,7 @@
 package com.zy.common.utils;
 
+import static android.webkit.WebSettings.LOAD_DEFAULT;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -78,7 +80,7 @@ public class WebViewUtils extends WebView{
         web.getSettings().setBuiltInZoomControls(true);// 是否显示缩放按钮，默认false
         web.getSettings().setUseWideViewPort(true);// 设置此属性，可任意比例缩放。大视图模式
         web.getSettings().setLoadWithOverviewMode(true);// 和setUseWideViewPort(true)一起解决网页自适应问题
-        web.getSettings().setAppCacheEnabled(true);// 是否使用缓存
+        web.getSettings().setCacheMode(LOAD_DEFAULT);// 是否使用缓存
         web.getSettings().setDomStorageEnabled(true);// DOM Storage
         // w.getSettings().setUserAgentString("User-Agent:Android");//设置用户代理，一般不用
         web.loadUrl(url);
@@ -107,7 +109,7 @@ public class WebViewUtils extends WebView{
          * LOAD_CACHE_ELSE_NETWORK 设置默认使用缓存，即使是缓存过期，也使用缓存
          * 只有缓存消失，才使用网络
          */
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setCacheMode(LOAD_DEFAULT);
         //是否展示一个缩放按钮（）
         settings.setBuiltInZoomControls(true);
     }

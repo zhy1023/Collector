@@ -2,7 +2,7 @@ package com.chuangmi.ui.base.mvvm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zy.common.exception.CRException
+import com.zy.common.exception.IMIException
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -47,7 +47,7 @@ abstract class BaseViewModel : ViewModel(), IContract.BaseViewModelFun {
     }
 
     override fun toastDebugError(e: Exception) {
-        if (e is CRException) {
+        if (e is IMIException) {
             debugError.postValue("code[${e.errCode}]:${e.message}")
         } else
             debugError.postValue(e.toString())
@@ -76,7 +76,7 @@ abstract class BaseViewModel : ViewModel(), IContract.BaseViewModelFun {
                 }
 
                 override fun onError(e: Throwable) {
-                    continuation.resumeWithException(CRException(e))
+                    continuation.resumeWithException(IMIException(e))
                 }
 
                 override fun onComplete() {

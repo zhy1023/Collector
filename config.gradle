@@ -141,7 +141,7 @@ dps.realtimeblurview = "com.github.mmin18:realtimeblurview:1.2.1"
 /** ********************************************************************/
 
 def build_versions = [:]
-build_versions.min_sdk = 21
+build_versions.min_sdk = 26
 build_versions.target_sdk = 31 //如果要升级到26，注意OTA升级后apk的安装在8.0机器上会有问题，参考https://www.jianshu.com/p/af37c1c588c4
 build_versions.compileSdkVersion = 31
 build_versions.buildToolsVersion = "30.0.2"
@@ -149,7 +149,7 @@ build_versions.supportLibraryVersion = "28.0.0"
 build_versions.app_id = "com.zy.collector"
 build_versions.version_name = "1.0"
 build_versions.version_code = 1
-build_versions.compileOptions = JavaVersion.VERSION_1_8
+build_versions.compileOptions = JavaVersion.VERSION_11
 build_versions.javaVersion = '1.8'
 build_versions.kotlin_version = '1.7.20'
 

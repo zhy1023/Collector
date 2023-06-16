@@ -6,14 +6,14 @@ plugins {
 def enableCMake = false
 
 android {
-    compileSdk build_versions.compileSdkVersion
+    compileSdk App.compileSdkVersion
 
     defaultConfig {
-        minSdk build_versions.min_sdk
-        targetSdk build_versions.target_sdk
-        applicationId build_versions.app_id
-        versionCode build_versions.version_code
-        versionName build_versions.version_name
+        minSdk App.minSdkVersion
+        targetSdk App.targetSdkVersion
+        applicationId App.appId
+        versionCode App.version_code
+        versionName App.version_name
         multiDexEnabled true
 
         externalNativeBuild {
@@ -65,7 +65,7 @@ android {
 dependencies {
     implementation dps.support.constraint_layout
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation project(path: ':commonLib:common')
     implementation project(path: ':commonLib:download')

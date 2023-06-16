@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Parcelable;
 
 import com.tencent.mmkv.MMKV;
-import com.zy.common.application.BaseApp;
+import com.zy.common.app.GlobalApp;
 
 import java.util.Collections;
 import java.util.Set;
@@ -35,7 +35,7 @@ public abstract class BaseMMKV {
         this.mmkvId = mmkvId;
         mmkv = MMKV.mmkvWithID(mmkvId);
         //TODO SharePrefences迁移到MMKV
-        Context context = BaseApp.context;
+        Context context = GlobalApp.getAppContext();
         SharedPreferences sp = context.getSharedPreferences(mmkvId, Context.MODE_PRIVATE);
         if (sp == null || sp.getAll().isEmpty()) {
             return;

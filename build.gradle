@@ -1,10 +1,33 @@
 //Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '7.2.1' apply false
-    id 'com.android.library' version '7.2.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.0' apply false
+buildscript {
+    repositories {
+        maven {
+            url = uri("$rootDir/repo")
+        }
+        google()
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+    dependencies {
+        classpath Deps.gradlePlugin
+        classpath Deps.kotlinPlugin
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.17'
+    }
 }
+
 apply from: "config.gradle"
+
+allprojects {
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+}
 
 task clean(type: Delete) {
     delete rootProject.buildDir
