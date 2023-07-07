@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.zy.common.constants.StrConstant;
+import com.zy.common.constants.AppConstant;
 
 import org.json.JSONException;
 
@@ -140,7 +140,7 @@ public final class JsonUtils {
      */
     public static int parseResultCode(String response) {
         try {
-            return new org.json.JSONObject(response).getInt(StrConstant.CODE);
+            return new org.json.JSONObject(response).getInt(AppConstant.CODE);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

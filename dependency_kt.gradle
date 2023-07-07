@@ -2,7 +2,7 @@
 dependencies {
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation Deps.kotlinCore
-    implementation Deps.kotlinPlugin
+    implementation Deps.kotlinStdlib
     implementation Deps.coroutines_core
     implementation Deps.coroutines_android
     implementation Deps.lifecycle_livedata

@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
-apply from: "../../common.gradle"
+apply from: rootProject.file('common.gradle')
 apply from: rootProject.file('dependency_kt.gradle')
 
 android {
@@ -32,4 +33,7 @@ dependencies {
     implementation dps.mvvm
     implementation dps.rx2.java
     implementation dps.rx2.android
+
+    implementation Deps.glide
+    kapt Deps.glide_compiler
 }

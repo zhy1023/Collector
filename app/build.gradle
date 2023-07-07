@@ -57,8 +57,13 @@ android {
         sourceCompatibility build_versions.compileOptions
         targetCompatibility build_versions.compileOptions
     }
+
     kotlinOptions {
         jvmTarget = '11'
+    }
+
+    buildFeatures {
+        dataBinding = true
     }
 }
 

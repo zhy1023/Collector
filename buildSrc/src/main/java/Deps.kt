@@ -12,6 +12,7 @@ import LibVersion.arouter_api_version
 import LibVersion.arouter_compiler_version
 import LibVersion.constraintlayout_version
 import LibVersion.fragment_ktx_version
+import LibVersion.glide_version
 import LibVersion.legacy_version
 import LibVersion.material_version
 import LibVersion.okhttp_version
@@ -44,6 +45,7 @@ object LibVersion {
     const val appcompat_version = "1.3.0"
     const val recyclerview_version = "1.1.0"
     const val constraintlayout_version = "2.1.2"
+    const val glide_version = "4.10.0"
 }
 
 object KtVersion {
@@ -59,8 +61,9 @@ object KtVersion {
 object Deps {
     const val gradlePlugin = "com.android.tools.build:gradle:$gradlePluginVersion"
 
-    //Kotlin
+    //gradle
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kt_plugin_version"
+
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kt_version"
     const val kotlinCore = "androidx.core:core-ktx:$ktx_version"
 
@@ -114,4 +117,7 @@ object Deps {
     //retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
     const val retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    const val glide = "com.github.bumptech.glide:glide:$glide_version"
+    const val glide_compiler = "com.github.bumptech.glide:compiler:$glide_version"
 }

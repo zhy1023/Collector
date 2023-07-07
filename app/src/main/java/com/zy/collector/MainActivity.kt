@@ -1,22 +1,18 @@
 package com.zy.collector
 
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.zy.collector.databinding.ActivityMainBinding
+import com.zy.common.base.BaseBindingActivity
+import com.zy.common.ext.launchActivity
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        // Example of a call to a native method
+class MainActivity : BaseBindingActivity<ActivityMainBinding>(R.layout.activity_main) {
+
+    init {
         Log.i(TAG, stringFromJNI())
-        initView();
     }
 
-    private fun initView() {
-        findViewById<View>(R.id.download).setOnClickListener(this)
+    override fun initView() {
+        b.download.setOnClickListener { launchActivity<DownloadActivity>() }
     }
 
     /**
@@ -36,10 +32,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-//            R.id.download -> startActivity(Intent(this, DownloadActivity::class.java))
-
-        }
-    }
 }
